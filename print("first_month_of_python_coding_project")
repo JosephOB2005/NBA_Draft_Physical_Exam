@@ -1,0 +1,40 @@
+name = input("What is your name?").strip()
+print(f"Hello {name} and welcome to the pre draft working \nwe will test your physical capabilities to ensure you are going into the league medically tested")
+while True:
+ try:
+   age = int(input("What is your age: ").strip())
+   print(f"You are {age} years old")
+   break
+ except ValueError:
+    print("That is not a valid number, please try again")
+medical_tests = {
+"under_19":{
+    "Message": "you are prohibited from entering the medical examination\nPlease apply again when you are 19 years old.",
+     "tests": None
+},
+"Over_19":{
+     "Message_2": "You are allowed to take the tests \nexpect to do the various testing within the medical centre",
+},
+"Tests":{
+    "Vertical Test": "Test 1: Vertical Jump",
+    "Cardio Test":"Test 2: Bleep Test",
+    "Strength testing": "Test 3: Bench Press"
+}
+}
+def medical():
+  if age < 19:
+      print(medical_tests["under_19"]["Message"])
+  elif age >=23:
+      print("You are prohibited to enter the Pre NBA physical due to you being above the max age\nconsider the G league try outs next month\nGood Luck!")
+  else:
+      print(medical_tests["Over_19"]["Message_2"])
+      for tests_name,tests_description in medical_tests ["Tests"].items():
+        print(f"{tests_description}")
+medical()
+
+Vertical_test_results = float(input("What were your recorded stats for the vertical test"))
+print(f"your vertical test results {Vertical_test_results}")
+if Vertical_test_results <=28:
+    print("Your vertical is below average for the league\nPlease consider your choices before continuing the physical")
+else:
+    print("Your vertical test results were impressive, please proceed to the next round")
