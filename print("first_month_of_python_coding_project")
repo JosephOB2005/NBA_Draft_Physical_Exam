@@ -24,17 +24,20 @@ medical_tests = {
 def medical():
   if age < 19:
       print(medical_tests["under_19"]["Message"])
+      return False
   elif age >=23:
       print("You are prohibited to enter the Pre NBA physical due to you being above the max age\nconsider the G league try outs next month\nGood Luck!")
+      return False
   else:
       print(medical_tests["Over_19"]["Message_2"])
       for tests_name,tests_description in medical_tests ["Tests"].items():
         print(f"{tests_description}")
-medical()
+      return True
 
-Vertical_test_results = float(input("What were your recorded stats for the vertical test"))
-print(f"your vertical test results {Vertical_test_results}")
-if Vertical_test_results <=28:
+if medical():
+ Vertical_test_results = float(input("What were your recorded stats for the vertical test:"))
+ print(f"your Vertical Test results {Vertical_test_results}")
+ if Vertical_test_results <=28:
     print("Your vertical is below average for the league\nPlease consider your choices before continuing the physical")
-else:
-    print("Your vertical test results were impressive, please proceed to the next round")
+ else:
+     print("Your vertical test results were impressive, please proceed to the next round")
