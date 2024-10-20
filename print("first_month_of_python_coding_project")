@@ -1,13 +1,13 @@
-name = input("What is your name?").strip()
-print(f"Hello {name} and welcome to the pre draft working \nwe will test your physical capabilities to ensure you are going into the league medically tested")
-while True:
+name = input("What is your name?").strip()  #Variable
+print(f"Hello {name} and welcome to the pre draft working \nwe will test your physical capabilities to ensure you are going into the league medically tested") #PrintStatement #FStrings
+while True:    #WhileLoops
  try:
    age = int(input("What is your age: ").strip())
    print(f"You are {age} years old")
-   break
+   break #BreakStatement
  except ValueError:
     print("That is not a valid number, please try again")
-medical_tests = {
+medical_tests = {     #Dictionaries
 "under_19":{
     "Message": "you are prohibited from entering the medical examination\nPlease apply again when you are 19 years old.",
      "tests": None
@@ -21,16 +21,16 @@ medical_tests = {
     "Strength testing": "Test 3: Bench Press"
 }
 }
-def medical():
-  if age < 19:
+def medical():  #Functions
+  if age < 19:   #ConditionalStatements
       print(medical_tests["under_19"]["Message"])
-      return False
-  elif age >=23:
+      return False #ReturnStatement
+  elif age >=23:  #ComparisonOperators
       print("You are prohibited to enter the Pre NBA physical due to you being above the max age\nconsider the G league try outs next month\nGood Luck!")
       return False
   else:
       print(medical_tests["Over_19"]["Message_2"])
-      for tests_name,tests_description in medical_tests ["Tests"].items():
+      for tests_name,tests_description in medical_tests ["Tests"].items(): #ForLoop
         print(f"{tests_description}")
       return True
 
@@ -41,3 +41,18 @@ if medical():
     print("Your vertical is below average for the league\nPlease consider your choices before continuing the physical")
  else:
      print("Your vertical test results were impressive, please proceed to the next round")
+print("Welcome to the Bleep Test\nWe will be measuring your cardiovascular endurance and comparing it to previous years")
+bleep_test_results = float(input("What were your recorded bleep test results?")) #FloatConversion
+print(f"your Bleep Test results{bleep_test_results}")
+if bleep_test_results <=13:
+     print("Your Bleep test is below average\nplease consider your options before moving onto the next test.")
+elif bleep_test_results >=14:
+    print("Your results were above average!\nWe will look forward to see you in the final test")
+    print("Welcome to the final test!\nWe will be testing your bench press")
+    bench_press_results = float(input("What were your bench press results"))
+    print(f"Your results were {bench_press_results}kg")
+if bench_press_results <=84:
+    print("Your results are below average\nTypically for guards this is normal\nAny other position do be a bit wary\nWe will be sending workout plans if you have shown good results previously")
+else:
+    print("You've shown exceptional results\nThank you for completing our physical exam")
+    print("All the best in the NBA Draft!")
