@@ -1,69 +1,77 @@
-name = input("What is your name?").strip()
-print(f"Hello {name} and welcome to the pre draft working \nwe will test your physical capabilities to ensure you are going into the league medically tested")
-while True:
- try:
-   age = int(input("What is your age: ").strip())
-   print(f"You are {age} years old")
-   break
- except ValueError:
-    print("That is not a valid number, please try again")
-medical_tests = {
-"under_19":{
-    "Message": "you are prohibited from entering the medical examination\nPlease apply again when you are 19 years old.",
-     "tests": None
-},
-"Over_19":{
-     "Message_2": "You are allowed to take the tests \nexpect to do the various testing within the medical centre",
-},
-"Tests":{
-    "Vertical Test": "Test 1: Vertical Jump",
-    "Cardio Test":"Test 2: Bleep Test",
-    "Strength testing": "Test 3: Bench Press"
-}
-}
-def medical():
-  if age < 19:
-      print(medical_tests["under_19"]["Message"])
-      return False
-  elif age >=23:
-      print("You are prohibited to enter the Pre NBA physical due to you being above the max age\nconsider the G league try outs next month\nGood Luck!")
-      return False
-  else:
-      print(medical_tests["Over_19"]["Message_2"])
-      for tests_name,tests_description in medical_tests ["Tests"].items():
-        print(f"{tests_description}")
-      return True
-
-if medical():
- Vertical_test_results = float(input("What were your recorded stats for the vertical test:"))
- print(f"your Vertical Test results {Vertical_test_results}")
- if Vertical_test_results <=28:
-    print("Your vertical is below average for the league\nPlease consider your choices before continuing the physical")
- else:
-     print("Your vertical test results were impressive, please proceed to the next round")
-print("Welcome to the Bleep Test\nWe will be measuring your cardiovascular endurance and comparing it to previous years")
-bleep_test_results = float(input("What were your recorded bleep test results?"))
-print(f"your Bleep Test results{bleep_test_results}")
-if bleep_test_results <=13:
-     print("Your Bleep test is below average\nplease consider your options before moving onto the next test.")
-elif bleep_test_results >=14:
-    print("Your results were above average!\nWe will look forward to see you in the final test")
-    print("Welcome to the final test!\nWe will be testing your bench press")
-    bench_press_results = float(input("What were your bench press results"))
-    print(f"Your results were {bench_press_results}kg")
-if  bench_press_results <=84:
-    print("Your results are below average\nTypically for guards this is normal\nAny other position do be a bit wary\nWe will be sending workout plans if you have shown good results previously")
-else:
-    print("You've shown exceptional results\nThank you for completing our physical exam")
-    print("All the best in the NBA Draft!")
-
-
-print("Your test results will appear below")
 from prettytable import PrettyTable
-table = PrettyTable()
-table.add_column("Physical tests", ["Vertical Test", "Bleep test", "Bench Press"])
-table.add_column("Results",[Vertical_test_results, bleep_test_results, bench_press_results])
 
-table.align = "l"
+class Player:
+    def __init__(self, name, age):
+        self.name = name  # links player to the test
+        self.age = age
+        self.results = {}
 
-print(table)
+    def display_intro(self):
+        print(f"Hello {self.name} and welcome to the pre-draft workout.")
+        print("We will test your physical capabilities to ensure you are going into the league medically tested.\n")
+
+class PhysicalTest:
+    def __init__(self, player):
+        self.player = player
+        self.Medical_tests = {
+            "Vertical Test": "Test 1: Vertical Jump",
+            "Cardio Test": "Test 2: Bleep Test",
+            "Strength Test": "Test 3: Bench Press"
+        }
+
+    def is_eligible(self):
+        if self.player.age < 19:
+            print("You are prohibited from entering the medical examination")
+            print("Please apply when you are 19 years old")
+            return False
+        elif self.player.age > 23:
+            print("You are prohibited from entering the pre-NBA physical due to being above the max age")
+            print("Consider the G-League tryouts next month")
+            return False
+        else:
+            print("You are allowed to take the tests. Expect to do the various testing within the medical center.")
+            return True
+
+    def conduct_tests(self):
+        vertical_jump = float(input("Enter your vertical jump result (in inches): "))
+        self.player.results["Vertical Test"] = vertical_jump
+        if vertical_jump <= 28:
+            print("Your vertical is below average for the league.\nPlease consider your choices before continuing.")
+        else:
+            print("Your vertical test results were impressive. Please proceed to the next round.")
+
+        print("\nWelcome to the Bench Press Test. We will measure your strength.")
+        bench_press = float(input("Enter your bench press result (in KG): "))
+        self.player.results["Bench Press"] = bench_press
+        if bench_press <= 84:
+            print("Your results are below average. For guards, this is normal; for other positions, be cautious.")
+            print("Workout plans may be provided if you have shown good results previously.")
+        else:
+            print("You've shown exceptional results! Thank you for completing our physical exam.")
+            print("All the best in the NBA Draft.")
+
+    def display_results(self):
+        print("\nYour test results will appear below:")
+        table = PrettyTable()
+        table.add_column("Physical Tests", list(self.player.results.keys()))
+        table.add_column("Results", list(self.player.results.values()))
+        table.align = "l"
+        print(table)
+
+
+while True:
+    name = input("What is your full name? ").strip()
+    age = int(input("What is your age? ").strip())
+    player = Player(name, age)
+    player.display_intro()
+
+    test = PhysicalTest(player)
+    if test.is_eligible():
+        test.conduct_tests()
+        test.display_results()
+
+    # Ask if the user wants to continue
+    another = input("\nWould you like to enter another player? (yes/no): ").strip().lower()
+    if another != 'yes':
+        print("Thank you for using the pre-draft workout program!")
+        break
